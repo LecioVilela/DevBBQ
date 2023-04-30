@@ -15,6 +15,7 @@ namespace DevBBQ.Infrastructure.Persistence
 
         }
         public DbSet<BBQ> BBQs { get; set; }
+        public DbSet<BBQParticipants> BBQParticipants { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

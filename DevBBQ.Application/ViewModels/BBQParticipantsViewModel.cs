@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DevBBQ.Core.Entities
+namespace DevBBQ.Application.ViewModels
 {
-    public class BBQParticipants : BaseEntity
+    public class BBQParticipantsViewModel
     {
-        public BBQParticipants(string name, decimal contribution)
+        public BBQParticipantsViewModel(string name, decimal contribution)
         {
             Name = name;
             Contribution = contribution;

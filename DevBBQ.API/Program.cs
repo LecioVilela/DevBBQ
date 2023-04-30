@@ -13,6 +13,7 @@ builder.Services.AddDbContext<DevBBQDbContext>(o => o.UseInMemoryDatabase("DevBB
 
 // Dependency Injection
 builder.Services.AddScoped<IBBQService, BBQService>();
+builder.Services.AddScoped<IBBQParticipantsService, BBQParticipantsService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
