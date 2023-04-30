@@ -95,7 +95,19 @@ namespace DevBBQ.API.Controllers
                 return NotFound();
             }
 
-            return Ok(bbqAll);
+            var bbq = _bbqService.GetById(bbqAll.Id);
+            if (bbq is null)
+            {
+                return NotFound();
+            }
+
+            var participants = bbqAll.Participants.FirstOrDefault(b => b.Id == id);
+            if (participants is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(participants);
         }
     }
 }

@@ -7,14 +7,15 @@ namespace DevBBQ.Core.Entities
 {
     public class BBQ : BaseEntity
     {
-        public BBQ(string titleBBQ, string description, string extraInfo, DateTime bBQDay)
+        public BBQ() { }
+        public void SetBBQ(string titleBBQ, string description, string extraInfo, DateTime bBQDay, ICollection<BBQParticipants> participants)
         {
             TitleBBQ = titleBBQ;
             Description = description;
             ExtraInfo = extraInfo;
             CreatedAt = DateTime.Now;
             BBQDay = bBQDay;
-            // Participants = participants;
+            Participants = participants;
         }
 
         public string TitleBBQ { get; private set; }

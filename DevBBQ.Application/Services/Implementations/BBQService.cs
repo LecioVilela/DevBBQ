@@ -20,12 +20,13 @@ namespace DevBBQ.Application.Services.Implementations
         }
         public int Create(NewBBQInputModel inputModel)
         {
-            var bbq = new BBQ(inputModel.TitleBBQ, inputModel.Description, inputModel.ExtraInfo, inputModel.BBQDay);
+            var newBBQ = new BBQ();
+            newBBQ.SetBBQ(inputModel.TitleBBQ, inputModel.Description, inputModel.ExtraInfo, inputModel.BBQDay, inputModel.Participants);
 
-            _dbContext.BBQs.Add(bbq);
+            _dbContext.BBQs.Add(newBBQ);
             _dbContext.SaveChanges();
 
-            return bbq.Id;
+            return newBBQ.Id;
         }
 
         public BBQParticipants AddParticipants(int bbq, BBQParticipants participants)
