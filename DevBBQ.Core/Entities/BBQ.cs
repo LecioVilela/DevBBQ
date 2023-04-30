@@ -22,7 +22,7 @@ namespace DevBBQ.Core.Entities
         public string ExtraInfo { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime BBQDay { get; private set; }
-        // public List<BBQParticipants> Participants { get; private set; }
+        public ICollection<BBQParticipants> Participants { get; private set; }
 
         public void Update(string titleBBQ, string description, DateTime bbqDay)
         {

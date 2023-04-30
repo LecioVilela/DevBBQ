@@ -8,6 +8,6 @@ namespace DevBBQ.Core.Entities
     public abstract class BaseEntity
     {
         protected BaseEntity() { }
-        public int Id { get; private set; }
+        public int Id { get; set; }
     }
 }

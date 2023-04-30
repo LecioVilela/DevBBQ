@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevBBQ.Application.InputModels;
 using DevBBQ.Application.Services.Interfaces;
+using DevBBQ.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevBBQ.API.Controllers
@@ -81,6 +82,20 @@ namespace DevBBQ.API.Controllers
             _bbqService.Delete(id);
 
             return NoContent();
+        }
+
+        [HttpGet("{id}/bbq/participants")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<BBQ> GetCompleteBBQ(int id)
+        {
+            var bbqAll = _bbqService.GetCompleteBBQ(id);
+
+            if (bbqAll is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(bbqAll);
         }
     }
 }

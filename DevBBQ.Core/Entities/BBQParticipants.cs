@@ -15,5 +15,6 @@ namespace DevBBQ.Core.Entities
 
         public string Name { get; private set; }
         public decimal Contribution { get; private set; }
+        public BBQ BBQ { get; set; }
     }
 }

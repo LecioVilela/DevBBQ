@@ -19,7 +19,7 @@ namespace DevBBQ.Application.Services.Implementations
             _dbContext = dbContext;
         }
 
-        public int Create(NewBBQParticipantsInputModel inputModel)
+        public int Create(int id, NewBBQParticipantsInputModel inputModel)
         {
             var bbqParticipants = new BBQParticipants(inputModel.Name, inputModel.Contribution);
 
@@ -27,6 +27,17 @@ namespace DevBBQ.Application.Services.Implementations
             _dbContext.SaveChanges();
 
             return bbqParticipants.Id;
+        }
+
+        public List<BBQParticipantsViewModel> GetAll(string query)
+        {
+            var participants = _dbContext.BBQParticipants;
+
+            var bbqViewModel = participants
+            .Select(b => new BBQParticipantsViewModel(b.Name, b.Contribution))
+            .ToList();
+
+            return bbqViewModel;
         }
 
         public BBQParticipantsViewModel GetById(int id)

@@ -7,6 +7,7 @@ using DevBBQ.Application.Services.Interfaces;
 using DevBBQ.Application.ViewModels;
 using DevBBQ.Core.Entities;
 using DevBBQ.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevBBQ.Application.Services.Implementations
 {
@@ -25,6 +26,37 @@ namespace DevBBQ.Application.Services.Implementations
             _dbContext.SaveChanges();
 
             return bbq.Id;
+        }
+
+        public BBQParticipants AddParticipants(int bbq, BBQParticipants participants)
+        {
+            var bbqParticipants = _dbContext.Set<BBQ>().Find(bbq);
+
+            if (bbqParticipants is null)
+            {
+                return null;
+            }
+
+            participants.Id = bbq;
+            _dbContext.Add(participants);
+            _dbContext.SaveChanges();
+
+            return participants;
+        }
+
+        public BBQParticipants RemoveParticipants(int bbq, int participantsID)
+        {
+            var participants = _dbContext.Set<BBQParticipants>().SingleOrDefault(b => b.Id == participantsID && b.Id == bbq);
+
+            if (participants is null)
+            {
+                return null;
+            }
+
+            _dbContext.Remove(participants);
+            _dbContext.SaveChanges();
+
+            return participants;
         }
 
         public void Delete(int id)
@@ -63,6 +95,13 @@ namespace DevBBQ.Application.Services.Implementations
             var bbq = _dbContext.BBQs.SingleOrDefault(b => b.Id == inputModel.Id);
 
             bbq.Update(inputModel.TitleBBQ, inputModel.Description, inputModel.BBQDay);
+        }
+
+        public BBQ GetCompleteBBQ(int id)
+        {
+            var bbq = _dbContext.Set<BBQ>().Include(b => b.Participants).SingleOrDefault(b => b.Id == id);
+
+            return bbq;
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevBBQ.Application.InputModels;
 using DevBBQ.Application.ViewModels;
+using DevBBQ.Core.Entities;
 
 namespace DevBBQ.Application.Services.Interfaces
 {
@@ -14,5 +15,6 @@ namespace DevBBQ.Application.Services.Interfaces
         int Create(NewBBQInputModel inputModel);
         void Update(UpdateBBQInputModel inputModel);
         void Delete(int id);
+        BBQ GetCompleteBBQ(int id);
     }
 }

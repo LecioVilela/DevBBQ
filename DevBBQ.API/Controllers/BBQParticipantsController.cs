@@ -21,11 +21,11 @@ namespace DevBBQ.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Post([FromBody] NewBBQParticipantsInputModel newBBQParticipantsInputModel)
+        public async Task<IActionResult> Post(int id, [FromBody] NewBBQParticipantsInputModel newBBQParticipantsInputModel)
         {
-            var id = _participants.Create(newBBQParticipantsInputModel);
+            var bbqIdParticipants = _participants.Create(id, newBBQParticipantsInputModel);
 
-            return CreatedAtAction(nameof(GetById), new { id }, newBBQParticipantsInputModel);
+            return CreatedAtAction(nameof(GetById), new { id }, bbqIdParticipants);
 
             // Return 201 as the payload from the response body.
         }
@@ -42,6 +42,15 @@ namespace DevBBQ.API.Controllers
             }
 
             return Ok(bbqparticipants);
+        }
+
+        [HttpGet("totalparticipants")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> Get(string query)
+        {
+            var participantsViewModels = _participants.GetAll(query);
+
+            return Ok(participantsViewModels);
         }
     }
 }
