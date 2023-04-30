@@ -7,13 +7,18 @@ namespace DevBBQ.Application.ViewModels
 {
     public class BBQParticipantsViewModel
     {
-        public BBQParticipantsViewModel(string name, decimal contribution)
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public decimal Contribution { get; set; }
+        public int BBQId { get; set; }
+
+        public BBQParticipantsViewModel(int id, string name, decimal contribution, int bbqId)
         {
+            Id = id;
             Name = name;
             Contribution = contribution;
+            BBQId = bbqId;
         }
-
-        public string Name { get; private set; }
-        public decimal Contribution { get; private set; }
     }
+
 }

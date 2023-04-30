@@ -101,13 +101,28 @@ namespace DevBBQ.API.Controllers
                 return NotFound();
             }
 
-            var participants = bbqAll.Participants.FirstOrDefault(b => b.Id == id);
-            if (participants is null)
-            {
-                return NotFound();
-            }
+            // var participants = bbqAll.Participants.FirstOrDefault(b => b.Id == id);
+            // if (participants is null)
+            // {
+            //     return NotFound();
+            // }
 
-            return Ok(participants);
+            return Ok(bbqAll);
         }
+
+        // [HttpPost("{bbqId}/participants")]
+        // [ProducesResponseType(StatusCodes.Status201Created)]
+        // public IActionResult AddParticipantsToBBQ(int bbqId, [FromBody] List<BBQParticipants> participants)
+        // {
+        //     try
+        //     {
+        //         _bbqService.AddParticipantsToBBQ(bbqId, participants);
+        //         return Ok();
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return BadRequest(ex.Message);
+        //     }
+        // }
     }
 }

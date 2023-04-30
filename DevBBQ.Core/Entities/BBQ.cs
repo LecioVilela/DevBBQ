@@ -8,14 +8,14 @@ namespace DevBBQ.Core.Entities
     public class BBQ : BaseEntity
     {
         public BBQ() { }
-        public void SetBBQ(string titleBBQ, string description, string extraInfo, DateTime bBQDay, ICollection<BBQParticipants> participants)
+        public void SetBBQ(string titleBBQ, string description, string extraInfo, DateTime bBQDay)
         {
             TitleBBQ = titleBBQ;
             Description = description;
             ExtraInfo = extraInfo;
             CreatedAt = DateTime.Now;
             BBQDay = bBQDay;
-            Participants = participants;
+
         }
 
         public string TitleBBQ { get; private set; }
@@ -23,7 +23,9 @@ namespace DevBBQ.Core.Entities
         public string ExtraInfo { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime BBQDay { get; private set; }
-        public ICollection<BBQParticipants> Participants { get; private set; }
+        public ICollection<BBQParticipants> Participants { get; set; }
+        public int TotalParticipants { get; set; }
+        public decimal TotalContribution { get; set; }
 
         public void Update(string titleBBQ, string description, DateTime bbqDay)
         {

@@ -19,6 +19,11 @@ namespace DevBBQ.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<BBQParticipants>()
+                        .HasOne(b => b.BBQ)
+                        .WithMany(p => p.Participants)
+                        .HasForeignKey(b => b.BBQId);
+
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
