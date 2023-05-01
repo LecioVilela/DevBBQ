@@ -9,8 +9,8 @@ namespace DevBBQ.Application.Services.Interfaces
 {
     public interface IBBQParticipantsService
     {
-        List<BBQParticipantsViewModel> GetAll(string query);
         BBQParticipantsViewModel GetById(int id);
         int Create(int id, NewBBQParticipantsInputModel inputModel);
+        public void Delete(int id);
     }
 }

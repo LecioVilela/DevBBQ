@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace DevBBQ.Core.Entities
 {
-    public class BBQParticipants : BaseEntity
+    public class BBQParticipant : BaseEntity
     {
-        public BBQParticipants(string name, decimal contribution)
+        public BBQParticipant(string name, decimal contribution)
         {
             Name = name;
             Contribution = contribution;

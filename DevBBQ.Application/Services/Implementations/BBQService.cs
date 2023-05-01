@@ -19,15 +19,16 @@ namespace DevBBQ.Application.Services.Implementations
             _dbContext = dbContext;
         }
 
-        public void AddParticipantsToBBQ(int bbqId, List<BBQParticipants> bbqParticipants)
+        public void AddParticipantsToBBQ(int bbqId, List<BBQParticipant> bbqParticipants)
         {
             var bbq = _dbContext.BBQs.Include(b => b.Participants).FirstOrDefault(b => b.Id == bbqId);
 
             if (bbq != null)
             {
-                bbq.Participants ??= new List<BBQParticipants>();
+                bbq.Participants ??= new List<BBQParticipant>();
                 // Add participants in the collection
-                bbq.Participants.Add((BBQParticipants)bbq.Participants);
+                bbq.Participants.Add((BBQParticipant)bbq.Participants);
+                _dbContext.SaveChanges();
 
                 // Caculates the total of the contributions
                 int totalParticipants = bbq.Participants.Count;
@@ -52,7 +53,7 @@ namespace DevBBQ.Application.Services.Implementations
             return newBBQ.Id;
         }
 
-        public BBQParticipants AddParticipants(int bbq, BBQParticipants participants)
+        public BBQParticipant AddParticipants(int bbq, BBQParticipant participants)
         {
             var bbqParticipants = _dbContext.Set<BBQ>().Find(bbq);
 
@@ -63,21 +64,6 @@ namespace DevBBQ.Application.Services.Implementations
 
             participants.Id = bbq;
             _dbContext.Add(participants);
-            _dbContext.SaveChanges();
-
-            return participants;
-        }
-
-        public BBQParticipants RemoveParticipants(int bbq, int participantsID)
-        {
-            var participants = _dbContext.Set<BBQParticipants>().SingleOrDefault(b => b.Id == participantsID && b.Id == bbq);
-
-            if (participants is null)
-            {
-                return null;
-            }
-
-            _dbContext.Remove(participants);
             _dbContext.SaveChanges();
 
             return participants;
@@ -119,12 +105,8 @@ namespace DevBBQ.Application.Services.Implementations
             var bbq = _dbContext.BBQs.SingleOrDefault(b => b.Id == inputModel.Id);
 
             bbq.Update(inputModel.TitleBBQ, inputModel.Description, inputModel.BBQDay);
+            _dbContext.SaveChanges();
         }
-
-        // public BBQ GetCompleteBBQ(int id)
-        // {
-        //     return _dbContext.BBQs.Include(b => b.Participants).FirstOrDefault(b => b.Id == id);
-        // }
 
         public BBQCompleteViewModel GetCompleteBBQ(int id)
         {
@@ -141,7 +123,7 @@ namespace DevBBQ.Application.Services.Implementations
             var totalParticipants = participants.Count();
             var totalContribution = participants.Sum(p => p.Contribution);
 
-            var viewModel = new BBQCompleteViewModel
+            var completeBBQViewModel = new BBQCompleteViewModel
             {
                 Id = bbq.Id,
                 TitleBBQ = bbq.TitleBBQ,
@@ -154,7 +136,7 @@ namespace DevBBQ.Application.Services.Implementations
                 TotalContribution = totalContribution
             };
 
-            return viewModel;
+            return completeBBQViewModel;
         }
 
     }

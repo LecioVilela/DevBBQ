@@ -23,7 +23,7 @@ namespace DevBBQ.Core.Entities
         public string ExtraInfo { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime BBQDay { get; private set; }
-        public ICollection<BBQParticipants> Participants { get; set; }
+        public ICollection<BBQParticipant> Participants { get; set; }
         public int TotalParticipants { get; set; }
         public decimal TotalContribution { get; set; }
 

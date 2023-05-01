@@ -16,7 +16,7 @@ namespace DevBBQ.Application.Services.Interfaces
         void Update(UpdateBBQInputModel inputModel);
         void Delete(int id);
         // BBQ GetCompleteBBQ(int id);
-        void AddParticipantsToBBQ(int id, List<BBQParticipants> bbqParticipants);
+        void AddParticipantsToBBQ(int id, List<BBQParticipant> bbqParticipants);
         BBQCompleteViewModel GetCompleteBBQ(int id);
     }
 }

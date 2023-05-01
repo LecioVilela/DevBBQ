@@ -21,15 +21,10 @@ namespace DevBBQ.Application.Services.Implementations
 
         public int Create(int id, NewBBQParticipantsInputModel inputModel)
         {
-            // var bbq = _dbContext.BBQs.FirstOrDefault(b => b.Id == id);
-
-            // if (bbq is null)
-            // {
-            //     return -1; // Or we could thrown an Ex
-            // }
-
-            var bbqParticipants = new BBQParticipants(inputModel.Name, inputModel.Contribution);
-            // bbqParticipants.Id = bbq.Id; // Add the BBQ Id for the participants
+            var bbqParticipants = new BBQParticipant(inputModel.Name, inputModel.Contribution)
+            {
+                BBQId = id
+            };
 
             _dbContext.BBQParticipants.Add(bbqParticipants);
             _dbContext.SaveChanges();
@@ -60,6 +55,17 @@ namespace DevBBQ.Application.Services.Implementations
             var bbqParticipantsViewModel = new BBQParticipantsViewModel(bbqParticipants.Id, bbqParticipants.Name, bbqParticipants.Contribution, bbqParticipants.BBQId);
 
             return bbqParticipantsViewModel;
+        }
+
+        public void Delete(int id)
+        {
+            var bbqParticipant = _dbContext.BBQParticipants.SingleOrDefault(b => b.Id == id);
+
+            if (bbqParticipant is not null)
+            {
+                _dbContext.BBQParticipants.Remove(bbqParticipant);
+                _dbContext.SaveChanges();
+            }
         }
     }
 }
