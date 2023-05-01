@@ -12,6 +12,5 @@ namespace DevBBQ.Application.InputModels
         public string TitleBBQ { get; set; }
         public string Description { get; set; }
         public DateTime BBQDay { get; set; }
-        // public List<BBQParticipants> Participants { get; set; }
     }
 }

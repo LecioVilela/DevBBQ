@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DevBBQ.Application.InputModels;
 using DevBBQ.Application.Services.Interfaces;
 using DevBBQ.Application.ViewModels;
@@ -71,8 +67,13 @@ namespace DevBBQ.Application.Services.Implementations
 
         public void Delete(int id)
         {
-            var bbq = _dbContext.BBQs.SingleOrDefault(b => b.Id == id);
-            _dbContext.SaveChanges();
+            var bbqDelete = _dbContext.BBQs.SingleOrDefault(b => b.Id == id);
+
+            if (bbqDelete is not null)
+            {
+                _dbContext.Remove(bbqDelete);
+                _dbContext.SaveChanges();
+            }
         }
 
         public List<BBQViewModel> GetAll(string query)

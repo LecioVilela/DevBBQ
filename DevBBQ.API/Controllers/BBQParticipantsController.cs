@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DevBBQ.Application.InputModels;
 using DevBBQ.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -19,9 +15,21 @@ namespace DevBBQ.API.Controllers
             _participants = participants;
         }
 
+        /// <summary>
+        /// Create a participant for the barbecue
+        /// </summary>
+        /// <remarks>
+        /// ### Process ###
+        ///   - Insert the data of the participant and the Id of wich barbecue.
+        /// ### Returns ###
+        /// Status Code 201 = Created
+        /// </remarks>
+        /// <param name="id">Barbecue</param>
+        /// <param name="newBBQParticipantsInputModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Post(int id, [FromBody] NewBBQParticipantsInputModel newBBQParticipantsInputModel)
+        public IActionResult Post(int id, [FromBody] NewBBQParticipantsInputModel newBBQParticipantsInputModel)
         {
             var bbqIdParticipants = _participants.Create(id, newBBQParticipantsInputModel);
 
@@ -30,9 +38,20 @@ namespace DevBBQ.API.Controllers
             // Return 201 as the payload from the response body.
         }
 
+        /// <summary>
+        /// Get information of a participant for the barbecue
+        /// </summary>
+        /// <remarks>
+        /// ### Process ###
+        ///   - Choose the participant Id that you'd like to see.
+        /// ### Returns ###
+        /// Status Code 200 = Ok
+        /// </remarks>
+        /// <param name="id">Barbecue</param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetById(int id)
+        public IActionResult GetById(int id)
         {
             var bbqparticipants = _participants.GetById(id);
 
@@ -44,9 +63,20 @@ namespace DevBBQ.API.Controllers
             return Ok(bbqparticipants);
         }
 
+        /// <summary>
+        /// Delete a participant for the barbecue
+        /// </summary>
+        /// <remarks>
+        /// ### Process ###
+        ///   - Choose the participant Id that you'd like to remove.
+        /// ### Returns ###
+        /// Status Code 204 = NoContent
+        /// </remarks>
+        /// <param name="id">Barbecue</param>
+        /// <returns></returns>
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
             _participants.Delete(id);
 

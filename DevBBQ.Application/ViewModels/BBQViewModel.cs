@@ -14,13 +14,11 @@ namespace DevBBQ.Application.ViewModels
             TitleBBQ = titleBBQ;
             CreatedAt = createdAt;
             BBQDay = bBQDay;
-            // Participants = participants;
         }
 
         public int Id { get; private set; }
         public string TitleBBQ { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime BBQDay { get; private set; }
-        // public List<BBQParticipants> Participants { get; private set; }
     }
 }

@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DevBBQ.Application.InputModels;
 using DevBBQ.Application.Services.Interfaces;
-using DevBBQ.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevBBQ.API.Controllers
@@ -20,18 +15,40 @@ namespace DevBBQ.API.Controllers
             _bbqService = bbqService;
         }
 
+        /// <summary>
+        /// Return all barbecues from database
+        /// </summary>
+        /// <remarks>
+        /// ### Process ###
+        ///   - Input the string query for the result.
+        /// ### Returns ###
+        /// Status Code 200 = Ok
+        /// </remarks>
+        /// <param name="query">Barbecue</param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Get(string query)
+        public IActionResult Get(string query)
         {
             var bbq = _bbqService.GetAll(query);
 
             return Ok(bbq);
         }
 
+        /// <summary>
+        /// Return a barbecue from database by id
+        /// </summary>
+        /// <remarks>
+        /// ### Process ###
+        ///   - Choose the barbecue id that you want to see.
+        /// ### Returns ###
+        /// Status Code 200 = Ok
+        /// </remarks>
+        /// <param name="id">Barbecue</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetById(int id)
+        public IActionResult GetById(int id)
         {
             var bbqAll = _bbqService.GetCompleteBBQ(id);
 
@@ -43,9 +60,20 @@ namespace DevBBQ.API.Controllers
             return Ok(bbqAll);
         }
 
+        /// <summary>
+        /// Create a barbecue
+        /// </summary>
+        /// <remarks>
+        /// ### Process ###
+        ///   - Insert all the information you will need.
+        /// ### Returns ###
+        /// Status Code 201 = Created
+        /// </remarks>
+        /// <param name="bbq">Barbecue</param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Post([FromBody] NewBBQInputModel bbq)
+        public IActionResult Post([FromBody] NewBBQInputModel bbq)
         {
             var id = _bbqService.Create(bbq);
 
@@ -53,9 +81,20 @@ namespace DevBBQ.API.Controllers
             // Return 201 as the payload from the response body.
         }
 
+        /// <summary>
+        /// Update a barbecue from database
+        /// </summary>
+        /// <remarks>
+        /// ### Process ###
+        ///   - Choose the ID you want to update.
+        /// ### Returns ###
+        /// Status Code 204 = No Content
+        /// </remarks>
+        /// <param name="bbq">Barbecue</param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> Update([FromBody] UpdateBBQInputModel bbq)
+        public IActionResult Update([FromBody] UpdateBBQInputModel bbq)
         {
             _bbqService.Update(bbq);
 
@@ -66,18 +105,16 @@ namespace DevBBQ.API.Controllers
         /// Delete a barbecue from database
         /// </summary>
         /// <remarks>
-        /// 
         /// ### Process ###
-        ///   - Choose the ID you want to delete
-        ///
+        ///   - Choose the ID you want to delete.
         /// ### Returns ###
-        /// Status Code 204 = No Content;
+        /// Status Code 204 = No Content
         /// </remarks>
         /// <param name="id">Barbecue IDs</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
             _bbqService.Delete(id);
 
