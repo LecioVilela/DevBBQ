@@ -44,13 +44,13 @@ namespace DevBBQ.API.Controllers
             return Ok(bbqparticipants);
         }
 
-        [HttpGet("totalparticipants")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Get(string query)
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> Delete(int id)
         {
-            var participantsViewModels = _participants.GetAll(query);
+            _participants.Delete(id);
 
-            return Ok(participantsViewModels);
+            return NoContent();
         }
     }
 }

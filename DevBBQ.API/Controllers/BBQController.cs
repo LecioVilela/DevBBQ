@@ -33,14 +33,14 @@ namespace DevBBQ.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetById(int id)
         {
-            var bbq = _bbqService.GetById(id);
+            var bbqAll = _bbqService.GetCompleteBBQ(id);
 
-            if (bbq is null)
+            if (bbqAll is null)
             {
                 return NotFound();
             }
 
-            return Ok(bbq);
+            return Ok(bbqAll);
         }
 
         [HttpPost]
@@ -53,7 +53,7 @@ namespace DevBBQ.API.Controllers
             // Return 201 as the payload from the response body.
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> Update([FromBody] UpdateBBQInputModel bbq)
         {
@@ -75,7 +75,7 @@ namespace DevBBQ.API.Controllers
         /// </remarks>
         /// <param name="id">Barbecue IDs</param>
         /// <returns></returns>
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> Delete(int id)
         {
@@ -83,46 +83,5 @@ namespace DevBBQ.API.Controllers
 
             return NoContent();
         }
-
-        [HttpGet("{id}/bbq/participants")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<BBQ> GetCompleteBBQ(int id)
-        {
-            var bbqAll = _bbqService.GetCompleteBBQ(id);
-
-            if (bbqAll is null)
-            {
-                return NotFound();
-            }
-
-            var bbq = _bbqService.GetById(bbqAll.Id);
-            if (bbq is null)
-            {
-                return NotFound();
-            }
-
-            // var participants = bbqAll.Participants.FirstOrDefault(b => b.Id == id);
-            // if (participants is null)
-            // {
-            //     return NotFound();
-            // }
-
-            return Ok(bbqAll);
-        }
-
-        // [HttpPost("{bbqId}/participants")]
-        // [ProducesResponseType(StatusCodes.Status201Created)]
-        // public IActionResult AddParticipantsToBBQ(int bbqId, [FromBody] List<BBQParticipants> participants)
-        // {
-        //     try
-        //     {
-        //         _bbqService.AddParticipantsToBBQ(bbqId, participants);
-        //         return Ok();
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return BadRequest(ex.Message);
-        //     }
-        // }
     }
 }
