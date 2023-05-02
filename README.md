@@ -15,6 +15,8 @@ Mas quais funcionalidades foram implementadas?
 - Cadastro, Atualização, Cancelamento e Consulta de Churrasco.
 - Cadastro de Participantes, Remoção dos mesmos.
     - Apontados para um churrasco especifíco e seu valor de contribuição.
+    - Colocar um valor sugerido por usuário de contribuição (valor com e sem bebida inclusa).
+    - Visualizar os detalhes do churrasco, total de participantes e valor arrecadado.
 
 ---
 
